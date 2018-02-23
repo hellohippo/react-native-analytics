@@ -29,8 +29,9 @@ public class RNSegmentIOAnalyticsModule extends ReactContextBaseJavaModule {
     Log.d("RNSegmentIOAnalytics", message);
   }
 
-  public RNSegmentIOAnalyticsModule(ReactApplicationContext reactContext) {
+  public RNSegmentIOAnalyticsModule(ReactApplicationContext reactContext, Analytics analytics) {
     super(reactContext);
+    mAnalytics = analytics;
   }
 
   /*

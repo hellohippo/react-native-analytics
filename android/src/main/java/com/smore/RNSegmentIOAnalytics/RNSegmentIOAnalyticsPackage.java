@@ -13,6 +13,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class RNSegmentIOAnalyticsPackage implements ReactPackage {
+  private static Analytics mAnalytics;
+
+  public RNSegmentIOAnalyticsPackage() {
+    mAnalytics = null;
+  }
+
+  public RNSegmentIOAnalyticsPackage(Analytics analytics) {
+    mAnalytics = analytics;
+  }
+
   @Override
   public List<NativeModule> createNativeModules(
                               ReactApplicationContext reactContext) {
@@ -21,7 +31,7 @@ public class RNSegmentIOAnalyticsPackage implements ReactPackage {
 
     List<NativeModule> modules = new ArrayList<>();
 
-    modules.add(new RNSegmentIOAnalyticsModule(reactContext));
+    modules.add(new RNSegmentIOAnalyticsModule(reactContext, mAnalytics));
 
     return modules;
   }
