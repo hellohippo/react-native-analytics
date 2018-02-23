@@ -1,5 +1,6 @@
 package com.smore.RNSegmentIOAnalytics;
 
+import com.segment.analytics.Analytics;
 import com.smore.RNSegmentIOAnalytics.RNSegmentIOAnalyticsModule;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;
