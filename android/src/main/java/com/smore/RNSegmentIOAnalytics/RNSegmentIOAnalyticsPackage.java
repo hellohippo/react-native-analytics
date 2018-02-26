@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class RNSegmentIOAnalyticsPackage implements ReactPackage {
-  private static Analytics mAnalytics;
+  private final Analytics mAnalytics;
 
   public RNSegmentIOAnalyticsPackage() {
     mAnalytics = null;
