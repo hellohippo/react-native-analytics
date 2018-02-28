@@ -1,5 +1,6 @@
 package com.smore.RNSegmentIOAnalytics;
 
+import com.segment.analytics.Analytics;
 import com.smore.RNSegmentIOAnalytics.RNSegmentIOAnalyticsModule;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;
@@ -13,6 +14,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class RNSegmentIOAnalyticsPackage implements ReactPackage {
+  private final Analytics mAnalytics;
+
+  public RNSegmentIOAnalyticsPackage() {
+    mAnalytics = null;
+  }
+
+  public RNSegmentIOAnalyticsPackage(Analytics analytics) {
+    mAnalytics = analytics;
+  }
+
   @Override
   public List<NativeModule> createNativeModules(
                               ReactApplicationContext reactContext) {
@@ -21,7 +32,7 @@ public class RNSegmentIOAnalyticsPackage implements ReactPackage {
 
     List<NativeModule> modules = new ArrayList<>();
 
-    modules.add(new RNSegmentIOAnalyticsModule(reactContext));
+    modules.add(new RNSegmentIOAnalyticsModule(reactContext, mAnalytics));
 
     return modules;
   }

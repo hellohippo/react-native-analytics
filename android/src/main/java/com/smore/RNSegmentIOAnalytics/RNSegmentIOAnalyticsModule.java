@@ -29,22 +29,20 @@ public class RNSegmentIOAnalyticsModule extends ReactContextBaseJavaModule {
     Log.d("RNSegmentIOAnalytics", message);
   }
 
-  public RNSegmentIOAnalyticsModule(ReactApplicationContext reactContext) {
+  public RNSegmentIOAnalyticsModule(ReactApplicationContext reactContext, Analytics analytics) {
     super(reactContext);
+    mAnalytics = analytics;
   }
 
   /*
    https://segment.com/docs/libraries/android/#identify
    */
   @ReactMethod
-  public void setup(String writeKey, Integer flushAt, Boolean shouldUseLocationServices, ReadableMap options) {
+  public void setup(String writeKey, Integer flushAt, Boolean shouldUseLocationServices) {
     if (mAnalytics == null) {
       Context context = getReactApplicationContext().getApplicationContext();
       Builder builder = new Analytics.Builder(context, writeKey);
       builder.flushQueueSize(flushAt);
-      if (options.getBoolean("trackApplicationLifecycleEvents")) {
-        builder.trackApplicationLifecycleEvents();
-      }
 
       if (mDebug) {
         builder.logLevel(Analytics.LogLevel.DEBUG);
