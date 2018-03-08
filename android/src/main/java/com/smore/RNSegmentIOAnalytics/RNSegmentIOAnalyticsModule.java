@@ -1,5 +1,6 @@
 package com.smore.RNSegmentIOAnalytics;
 
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -142,6 +143,14 @@ public class RNSegmentIOAnalyticsModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void enable() {
     mEnabled = true;
+  }
+
+  /*
+    https://segment.com/docs/libraries/android/#anonymousid
+   */
+  @ReactMethod
+  public void getAnonymousId(Promise promise) {
+    promise.resolve(mAnalytics.getAnalyticsContext().traits().anonymousId());
   }
 
   private Properties toProperties (ReadableMap map) {

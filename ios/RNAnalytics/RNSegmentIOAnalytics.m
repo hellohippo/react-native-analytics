@@ -84,4 +84,11 @@ RCT_EXPORT_METHOD(enable) {
     [[SEGAnalytics sharedAnalytics] enable];
 }
 
+/*
+ https://segment.com/docs/libraries/ios/#anonymousid
+ */
+RCT_EXPORT_METHOD(getAnonymousId:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+    resolve([[SEGAnalytics sharedAnalytics] getAnonymousId]);
+}
+
 @end
