@@ -17,6 +17,7 @@ import android.util.Log;
 import android.content.Context;
 
 public class RNSegmentIOAnalyticsModule extends ReactContextBaseJavaModule {
+  private static final String NOT_INITIALIZED = "Segment context not initialized";
   private static Analytics mAnalytics = null;
   private Boolean mEnabled = true;
   private Boolean mDebug = false;
@@ -150,7 +151,11 @@ public class RNSegmentIOAnalyticsModule extends ReactContextBaseJavaModule {
    */
   @ReactMethod
   public void getAnonymousId(Promise promise) {
-    promise.resolve(mAnalytics.getAnalyticsContext().traits().anonymousId());
+    try {
+      promise.resolve(mAnalytics.getAnalyticsContext().traits().anonymousId());
+    } catch (NullPointerException e) {
+      promise.reject(NOT_INITIALIZED, e);
+    }
   }
 
   private Properties toProperties (ReadableMap map) {
