@@ -1,5 +1,6 @@
 package com.smore.RNSegmentIOAnalytics;
 
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -16,6 +17,7 @@ import android.util.Log;
 import android.content.Context;
 
 public class RNSegmentIOAnalyticsModule extends ReactContextBaseJavaModule {
+  private static final String NOT_INITIALIZED = "Segment context not initialized";
   private static Analytics mAnalytics = null;
   private Boolean mEnabled = true;
   private Boolean mDebug = false;
@@ -142,6 +144,18 @@ public class RNSegmentIOAnalyticsModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void enable() {
     mEnabled = true;
+  }
+
+  /*
+    https://segment.com/docs/libraries/android/#anonymousid
+   */
+  @ReactMethod
+  public void getAnonymousId(Promise promise) {
+    try {
+      promise.resolve(mAnalytics.getAnalyticsContext().traits().anonymousId());
+    } catch (NullPointerException e) {
+      promise.reject(NOT_INITIALIZED, e);
+    }
   }
 
   private Properties toProperties (ReadableMap map) {
